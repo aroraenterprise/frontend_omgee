@@ -1,8 +1,17 @@
-<div class="row">
-    <div class="col-md-6">
-        <div ui-view="leftColumn"></div>
+<section id="skills" class="secPad white">
+    <div class="container">
+        <div class="heading text-center">
+            <!-- Heading -->
+            <h2>Welcome Dr. House.</h2>
+            <p>You have <strong>6</strong> patients today</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div ui-view="leftColumn"></div>
+            </div>
+            <div class="col-sm-6">
+                <div ui-view="rightColumn"></div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <div ui-view="rightColumn"></div>
-    </div>
-</div>
+</section>
