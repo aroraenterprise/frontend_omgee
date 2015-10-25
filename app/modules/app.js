@@ -24,18 +24,27 @@ var app = angular.module('app', [
 app.config(function ($stateProvider, $urlRouterProvider) {
     //
     // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/dashboard");
+    $urlRouterProvider.otherwise("/dashboard/home");
     //
     // Now set up the states
     $stateProvider
         .state('dashboard', {
             url: "/dashboard",
             controller: "DashboardController",
-            templateUrl: "/modules/dashboard/dashboard.view.html"
+            templateUrl: "/modules/dashboard/dashboard.view.html",
+            abstract: true
         })
-        .state('dashboard.patients', {
-            url: "/patients",
-            controller: "PatientsController",
-            templateUrl: "/modules/patients/patients.list.html"
+        .state('dashboard.home', {
+            url: "/home",
+            views: {
+                "leftColumn": {
+                    templateUrl: "/modules/patients/patients.view.html",
+                    controller: "PatientController"
+                },
+                "rightColumn": {
+                    templateUrl: "/modules/analysis/analysis.view.html",
+                    controller: "AnalysisController"
+                }
+            }
         });
 });
