@@ -39,7 +39,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 "leftColumn": {
                     templateUrl: "/modules/patients/patients.view.html",
-                    controller: "PatientController"
+                    controller: "PatientsController"
                 },
                 "rightColumn": {
                     templateUrl: "/modules/analysis/analysis.view.html",
