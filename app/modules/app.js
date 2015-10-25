@@ -21,6 +21,7 @@ var app = angular.module('app', [
     'ui.router',
     'chart.js',
     'btford.socket-io',
+    'angularSoundManager',
     'users']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
@@ -56,7 +57,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     controller: "AnalysisController"
                 }
             }
-        })
+        });
 }).controller('CoreController', function($scope, $location, $state){
     $scope.login = $location.url() == '/';
     $scope.$on('$locationChangeSuccess', function(event, location){

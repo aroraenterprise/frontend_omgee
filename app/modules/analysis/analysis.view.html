@@ -9,4 +9,7 @@
     chart-labels="labels" chart-legend="true" chart-series="series"
     chart-click="onClick" >
   </canvas>
+
+  <Button class="btn btn-block {{musicEnabled ? 'btn-success' : 'btn-default'}}"
+          ng-click="enableMusic()"><i class="fa fa-volume-up"></i> {{musicEnabled ? 'Disable Music on HUB' : 'Enable Music on HUB' }}</Button>
 </section> 

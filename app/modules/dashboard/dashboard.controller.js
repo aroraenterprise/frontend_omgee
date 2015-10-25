@@ -147,5 +147,79 @@
             return count;
         };
 
+        var keonPosition;
+        var keonInTransit = false;
+        angular.forEach($scope.patients, function(value, key){
+            if (value.id == 0){
+                keonPosition = key;
+                keonInTransit = value.status == "inTransit";
+            }
+        });
+
+        SC.initialize({
+            client_id: "01fd51938b52f3367dd22117e98713f6"
+        });
+
+        var song_initial = '230008415';
+        var song_final = '172929391';
+
+        var song_initial_obj;
+        var song_final_obj;
+
+        $scope.musicEnabled = false;
+        $scope.enableMusic = function(){
+            $scope.musicEnabled = !$scope.musicEnabled;
+            if ($scope.musicEnabled) {
+                SC.stream('/tracks/' + song_initial, function (sm_object) {
+                    song_initial_obj = sm_object;
+                    song_initial_obj.play();
+                });
+                SC.stream('/tracks/' + song_final, function(obj){
+                    song_final_obj = obj;
+                });
+            } else {
+                song_initial_obj.stop();
+                song_final_obj.stop();
+            }
+        };
+
+        function mixSong(song1, song2){
+            var count = 100;
+            $interval(function(){
+                count -= 2;
+                if (count == 0)
+                    song1.stop();
+                if (count < 50)
+                    song2.play();
+                song2.setVolume (100 - count);
+                song1.setVolume(count);
+            }, 100, 100);
+        }
+
+        $scope.$on('socket:sensorHeartrate', function(ev, data){
+            console.log(data);
+            if (data.username === "keon"){
+                if (keonInTransit) {
+                    $scope.patients[keonPosition].status = "checkedIn";
+                    keonInTransit = false;
+                    if ($scope.musicEnabled) {
+                        mixSong(song_initial_obj, song_final_obj);
+                    }
+                }
+                if (keonInTransit == false)
+                    $scope.patients[keonPosition].heartRate = data.heartrate;
+            }
+
+            if (data.checkout === "true"){
+                console.log("user checked out");
+                if (!keonInTransit){
+                    $scope.patients[keonPosition].status = "checkedOut";
+                    keonInTransit = true;
+                    if ($scope.musicEnabled) {
+                        mixSong(song_final_obj, song_initial_obj);
+                    }
+                }
+            }
+        });
     });
 }());
