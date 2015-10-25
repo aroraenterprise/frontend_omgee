@@ -19,6 +19,7 @@ var app = angular.module('app', [
     'ngSanitize',
     'ngTouch',
     'ui.router',
+    'chart.js',
     'users']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
