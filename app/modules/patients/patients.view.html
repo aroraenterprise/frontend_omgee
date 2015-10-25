@@ -1,44 +1,44 @@
-<h2>Programming <strong>Skills</strong></h2>
-<p class="mrgBtm20">
-    It takes knowledge, smart work, and dedication to make great ideas come to life. I have been helping make great ideas happen for the past 7 years and am always ready for new challenges.
+<div class="row">
+    <div class="col-sm-10">
 
-</p>
-<div class="row">
-    <div class="col-md-2 skilltitle">HTML5</div>
-    <div class="col-md-8">
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-                <span class="sr-only">90% Complete</span>
+        <h2><strong>Checked In</strong> Patients</h2>
+        <ul class="patients">
+            <li ng-repeat="item in checkedIn">
+                <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
+                <div class="info">
+                    <h3>{{item.name}}</h3>
+                    <p><i class="fa fa-music"></i> {{item.music[0]}} &middot;
+                        <i class="fa fa-lightbulb-o"></i> &middot; <i class="fa fa-newspaper-o"></i><br>
+                        <i class="fa fa-heartbeat" style="visibility: {{ heartHidden[item.id] ? 'hidden' :'' }};"></i>
+                        {{hr[item.id]}}</p>
+                </div>
+            </li>
+        </ul>
+        <div class="row">
+            <h2><strong>Upcoming</strong> Appointments</h2>
+            <div class="patients-grid">
+                <div class="col-sm-6 item" ng-repeat="item in inTransit">
+                    <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
+                    <div class="info">
+                        <h4>{{item.name}}</h4>
+                        <p><i class="fa fa-phone"></i> &middot;
+                            <i class="fa fa-comments-o"></i> &middot;
+                            <i class="fa fa-sticky-note-o"></i></p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-2 skilltitle">CSS/CC3</div>
-    <div class="col-md-8">
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-                <span class="sr-only">90% Complete</span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-2 skilltitle">JavaScript</div>
-    <div class="col-md-8">
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                <span class="sr-only">80% Complete</span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-2 skilltitle">jQuery/Ajax</div>
-    <div class="col-md-8">
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-                <span class="sr-only">90% Complete</span>
+
+        <h2><strong>Completed</strong> Appointments</h2>
+        <div class="patients-grid">
+            <div class="col-sm-6 item" ng-repeat="item in checkedOut">
+                <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
+                <div class="info">
+                    <h4>{{item.name}}</h4>
+                    <p><i class="fa fa-phone"></i> &middot;
+                        <i class="fa fa-comments-o"></i> &middot;
+                        <i class="fa fa-sticky-note-o"></i></p>
+                </div>
             </div>
         </div>
     </div>
