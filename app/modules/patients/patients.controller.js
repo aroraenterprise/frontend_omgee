@@ -2,27 +2,31 @@
     var module = angular.module('users');
 
     module.controller('PatientsController', function($scope, $interval){
-        //
-        //$scope.inTransit.push(keonData);
-        //var keonPosition = -1;
+
+
+        var keonPosition;
+        var keonInTransit = false;
+        angular.forEach($scope.patients, function(value, key){
+            if (value.id == 0){
+                keonPosition = key;
+                keonInTransit = value.status == "inTransit";
+            }
+        });
 
         $scope.$on('socket:sensorHeartrate', function(ev, data){
             if (data.username === "keon"){
                 if (keonInTransit) {
-                    $scope.checkedIn.push(keonData);
-                    keonPosition = $scope.checkedIn.length - 1;
-                    $scope.inTransit.pop();
+                    $scope.patients[keonPosition].status = "checkedIn";
                     keonInTransit = false;
                 }
-                if (keonPosition != -1)
-                    $scope.checkedIn[keonPosition].heartRate = data.heartrate;
+                if (keonInTransit == false)
+                    $scope.patients[keonPosition].heartRate = data.heartrate;
             }
 
             if (data.checkout === "true"){
                 console.log("user checked out");
                 if (!keonInTransit){
-                    $scope.checkedOut.push(keonData);
-                    $scope.checkedIn.pop();
+                    $scope.patients[keonPosition].status = "checkedOut";
                     keonInTransit = true;
                 }
             }
