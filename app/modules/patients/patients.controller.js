@@ -14,6 +14,7 @@
         });
 
         $scope.$on('socket:sensorHeartrate', function(ev, data){
+            console.log(data);
             if (data.username === "keon"){
                 if (keonInTransit) {
                     $scope.patients[keonPosition].status = "checkedIn";
@@ -30,6 +31,6 @@
                     keonInTransit = true;
                 }
             }
-        })
+        });
     });
 }());

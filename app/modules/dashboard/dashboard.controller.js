@@ -1,7 +1,7 @@
 (function(){
     var module = angular.module('users');
 
-    module.controller('DashboardController', function($scope, $interval){
+    module.controller('DashboardController', function($scope, $interval, OmgeeSocket){
         $scope.patients = [
             {
                 "name":"Keon Kim",
@@ -135,6 +135,17 @@
 
         $scope.closePatientDialog = function(){
             $scope.patientSelected = null;
-        }
+        };
+
+        $scope.getTotalRemainingPatients = function(){
+            var count = $scope.patients.length - 1;
+            angular.forEach($scope.patients, function(value, key){
+                if (value.status == 'checkedOut'){
+                    count--;
+                }
+            });
+            return count;
+        };
+
     });
 }());

@@ -139,6 +139,7 @@ a:hover {
 .navbar-inverse .navbar-toggle {
     border-color: #CC4646;
     background-color: #CC4646;
+    z-index: 100;
 }
 .header .navbar {
     margin: 0;

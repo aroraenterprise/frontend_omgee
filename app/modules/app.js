@@ -47,7 +47,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     templateUrl: "/modules/patients/patients.view.html",
                     controller: "PatientsController"
                 },
-                "rightColumnTop":{
+                "rightColumnTop": {
                     templateUrl: "/modules/patients/patients.select.html",
                     controller: "PatientsSelectController"
                 },
@@ -56,5 +56,18 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     controller: "AnalysisController"
                 }
             }
-        });
+        })
+}).controller('CoreController', function($scope, $location, $state){
+    $scope.login = $location.url() == '/';
+    $scope.$on('$locationChangeSuccess', function(event, location){
+        $scope.login = $location.url() == '/';
+    });
+
+    $scope.navbarButtonClick = function(){
+        if ($scope.login){
+            $state.go('dashboard.home');
+        } else {
+            $state.go('home');
+        }
+    }
 });
