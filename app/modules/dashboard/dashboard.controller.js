@@ -165,6 +165,8 @@
 
         var song_initial_obj;
         var song_final_obj;
+        var song_initial_playing;
+        var song_final_playing;
 
         $scope.musicEnabled = false;
         $scope.enableMusic = function(){
@@ -185,14 +187,14 @@
 
         function mixSong(song1, song2){
             var count = 100;
+            song2.play();
+            song1.stop();
             $interval(function(){
+                if (count > 1){
+                    song2.setVolume (100 - count);
+                    song1.setVolume(count);
+                }
                 count -= 2;
-                if (count == 0)
-                    song1.stop();
-                if (count < 50)
-                    song2.play();
-                song2.setVolume (100 - count);
-                song1.setVolume(count);
             }, 100, 100);
         }
 
@@ -203,7 +205,10 @@
                     $scope.patients[keonPosition].status = "checkedIn";
                     keonInTransit = false;
                     if ($scope.musicEnabled) {
+                        console.log(song_final_obj);
                         mixSong(song_initial_obj, song_final_obj);
+                        song_initial_playing = false;
+                        song_final_playing = true;
                     }
                 }
                 if (keonInTransit == false)
@@ -217,6 +222,8 @@
                     keonInTransit = true;
                     if ($scope.musicEnabled) {
                         mixSong(song_final_obj, song_initial_obj);
+                        song_initial_playing = true;
+                        song_final_playing = false;
                     }
                 }
             }
