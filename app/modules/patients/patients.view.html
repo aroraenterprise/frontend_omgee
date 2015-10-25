@@ -3,21 +3,21 @@
 
         <h2><strong>Checked In</strong> Patients</h2>
         <ul class="patients">
-            <li ng-repeat="item in checkedIn">
+            <li ng-repeat="item in checkedIn | orderBy: 'id'">
                 <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
                 <div class="info">
                     <h3>{{item.name}}</h3>
                     <p><i class="fa fa-music"></i> {{item.music[0]}} &middot;
                         <i class="fa fa-lightbulb-o"></i> &middot; <i class="fa fa-newspaper-o"></i><br>
                         <i class="fa fa-heartbeat" style="visibility: {{ heartHidden[item.id] ? 'hidden' :'' }};"></i>
-                        {{hr[item.id]}}</p>
+                        {{item.heartRate}}</p>
                 </div>
             </li>
         </ul>
         <div class="row">
             <h2><strong>Upcoming</strong> Appointments</h2>
             <div class="patients-grid">
-                <div class="col-sm-6 item" ng-repeat="item in inTransit">
+                <div class="col-sm-6 item" ng-repeat="item in inTransit | orderBy: 'id'">
                     <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
                     <div class="info">
                         <h4>{{item.name}}</h4>

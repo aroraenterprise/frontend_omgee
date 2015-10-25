@@ -20,6 +20,7 @@ var app = angular.module('app', [
     'ngTouch',
     'ui.router',
     'chart.js',
+    'btford.socket-io',
     'users']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {

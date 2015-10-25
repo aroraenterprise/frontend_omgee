@@ -31,7 +31,8 @@
                 "avg_anxiety":35,
                 "avg_wait_time":40,
                 "profile_pic":"female1.png",
-                "id": 0
+                "id": 1,
+                "heartRate": 72
             },
             {
                 "name":"Cho Carey",
@@ -40,7 +41,8 @@
                 "avg_anxiety":92,
                 "avg_wait_time":26,
                 "profile_pic":"female2.jpg",
-                "id": 1
+                "id": 2,
+                "heartRate": 83
             },
             {
                 "name":"Trey Kimmel",
@@ -49,7 +51,8 @@
                 "avg_anxiety":96,
                 "avg_wait_time":71,
                 "profile_pic":"male3.jpg",
-                "id": 2
+                "id": 3,
+                "heartRate": 65
             }
         ];
 
@@ -94,16 +97,51 @@
             return hr;
         };
 
-        $scope.hr = [
-            72, 83, 65
-        ];
-
         $scope.heartHidden = [];
 
         $interval(function(){
-            for (var i = 0; i < 3; i++){
-                $scope.hr[i] = parseInt(adjustHR($scope.hr[i]));
-            }
+            angular.forEach($scope.checkedIn, function(value, key){
+                if (value.id != 0){
+                    value.heartRate = parseInt(adjustHR(value.heartRate));
+                }
+            });
         }, 3000);
+
+        var keonInTransit = true;
+
+        var keonData = {
+            "name":"Keon Kim",
+            "username":"keon",
+            "music":["A Midsummer Night's Dream"],
+            "avg_anxiety": 88,
+            "avg_wait_time": 15,
+            "profile_pic":"keon.jpg",
+            "id": 0
+        };
+
+        $scope.inTransit.push(keonData);
+        var keonPosition = -1;
+
+        $scope.$on('socket:sensorHeartrate', function(ev, data){
+            if (data.username === "keon"){
+                if (keonInTransit) {
+                    $scope.checkedIn.push(keonData);
+                    keonPosition = $scope.checkedIn.length - 1;
+                    $scope.inTransit.pop();
+                    keonInTransit = false;
+                }
+                if (keonPosition != -1)
+                    $scope.checkedIn[keonPosition].heartRate = data.heartrate;
+            }
+
+            if (data.checkout === "true"){
+                console.log("user checked out");
+                if (!keonInTransit){
+                    $scope.checkedOut.push(keonData);
+                    $scope.checkedIn.pop();
+                    keonInTransit = true;
+                }
+            }
+        })
     });
 }());
