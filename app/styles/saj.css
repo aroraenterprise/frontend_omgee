@@ -1151,6 +1151,7 @@ ul.patients li{
 
 ul.patients li:hover {
     background-color: #eee;
+    cursor: pointer;
 }
 
 ul.patients img {
@@ -1174,6 +1175,7 @@ ul.patients .info{
 
 .patients-grid .item:hover {
     background-color: #eee;
+    cursor: pointer;
 }
 
 .patients-grid img {
