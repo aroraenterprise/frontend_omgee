@@ -26,10 +26,14 @@ var app = angular.module('app', [
 app.config(function ($stateProvider, $urlRouterProvider) {
     //
     // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/dashboard/home");
+    $urlRouterProvider.otherwise("/");
     //
     // Now set up the states
     $stateProvider
+        .state('home', {
+            url: "/",
+            templateUrl: "/modules/home/home.view.html"
+        })
         .state('dashboard', {
             url: "/dashboard",
             controller: "DashboardController",
@@ -42,6 +46,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 "leftColumn": {
                     templateUrl: "/modules/patients/patients.view.html",
                     controller: "PatientsController"
+                },
+                "rightColumnTop":{
+                    templateUrl: "/modules/patients/patients.select.html",
+                    controller: "PatientsSelectController"
                 },
                 "rightColumn": {
                     templateUrl: "/modules/analysis/analysis.view.html",

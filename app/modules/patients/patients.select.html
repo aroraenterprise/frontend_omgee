@@ -1,0 +1,16 @@
+<div class="profile-card" ng-if="patientSelected">
+    <img src="/images/profile/{{patientSelected.profile_pic}}" alt="{{patientSelected.name}}-profilepic"/>
+    <div class="info">
+        <h2>{{patientSelected.name}}</h2>
+        <p ng-if="patientSelected.status == 'checkedIn'"><i class="fa fa-heartbeat" style="color:red;"></i> {{patientSelected.heartRate}}</p>
+
+        <p><i class="fa fa-phone"></i> &middot;
+            <i class="fa fa-comments-o"></i> &middot;
+            <i class="fa fa-sticky-note-o"></i></p>
+
+        <button ng-if="patientSelected.status == 'checkedIn'" class="btn btn-block btn-lg btn-success">
+            <i class="fa fa-stethoscope"></i> Seat Patient</button>
+        <button class="btn btn-block btn-lg btn-default" ng-click="closePatientDialog()"><i class="fa fa-times"></i> Close</button>
+
+    </div>
+</div>

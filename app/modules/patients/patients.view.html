@@ -3,7 +3,8 @@
 
         <h2><strong>Checked In</strong> Patients</h2>
         <ul class="patients">
-            <li ng-repeat="item in checkedIn | orderBy: 'id'">
+            <li ng-repeat="item in patients | orderBy: 'id'" ng-if="item.status == 'checkedIn'"
+                    ng-click="onPatientSelect(item)">
                 <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
                 <div class="info">
                     <h3>{{item.name}}</h3>
@@ -16,22 +17,10 @@
         </ul>
         <div class="row">
             <h2><strong>Upcoming</strong> Appointments</h2>
-            <div class="patients-grid">
-                <div class="col-sm-6 item" ng-repeat="item in inTransit | orderBy: 'id'">
-                    <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
-                    <div class="info">
-                        <h4>{{item.name}}</h4>
-                        <p><i class="fa fa-phone"></i> &middot;
-                            <i class="fa fa-comments-o"></i> &middot;
-                            <i class="fa fa-sticky-note-o"></i></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <h2><strong>Completed</strong> Appointments</h2>
-        <div class="patients-grid">
-            <div class="col-sm-6 item" ng-repeat="item in checkedOut">
+            <div class="patients-grid"">
+            <div class="col-sm-6 item" ng-repeat="item in patients | orderBy: 'id'"
+                 ng-if="item.status == 'inTransit'"
+                 ng-click="onPatientSelect(item)">
                 <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
                 <div class="info">
                     <h4>{{item.name}}</h4>
@@ -42,4 +31,19 @@
             </div>
         </div>
     </div>
+
+    <h2><strong>Completed</strong> Appointments</h2>
+    <div class="patients-grid">
+        <div class="col-sm-6 item" ng-repeat="item in patients | orderBy: 'id'" ng-if="item.status == 'checkedOut'"
+                ng-click="onPatientSelect(item)">
+            <img src="/images/profile/{{item.profile_pic}}" alt="{{item.name}}-profilepic"/>
+            <div class="info">
+                <h4>{{item.name}}</h4>
+                <p><i class="fa fa-phone"></i> &middot;
+                    <i class="fa fa-comments-o"></i> &middot;
+                    <i class="fa fa-sticky-note-o"></i></p>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
